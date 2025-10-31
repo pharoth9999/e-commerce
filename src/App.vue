@@ -1,79 +1,111 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { CategoryCard, Banner } from '@/components'
+import { burgerImage, peachImage, appleImage, blackPlumImage, cakeAndmilkImage, headPhoneImage, kiwiImage, orangeImage, snackImage, vegetableImage, onionImage, milkImage, vegetablesImage } from '@/assets'
+
 
 </script>
-
 <template>
-  <header>
-
-    <div class="wrapper">
-      <h1>This is my first VueJs project</h1>
-
+  <div class="container">
+    <div class="category-section">
+      <CategoryCard
+        :imageSrc="burgerImage"
+        title="Cake & Milk"
+        :itemCount="14"
+        bgColor="#F2FCE4"
+      />
+      <CategoryCard
+        :imageSrc="peachImage"
+        title="Peach"
+        :itemCount="17"
+        bgColor="#FFFCEB"
+      />
+      <CategoryCard
+        :imageSrc="kiwiImage"
+        title="Oganic kiwi"
+        :itemCount="21"
+        bgColor="#ECFFEC"
+      />
+      <CategoryCard
+        :imageSrc="appleImage"
+        title="Red Apple"
+        :itemCount="21"
+        bgColor="#FEEFEA"
+      />
+      <CategoryCard
+        :imageSrc="snackImage"
+        title="Snack"
+        :itemCount="34"
+        bgColor="#FFF3EB"
+      />
+      <CategoryCard
+        :imageSrc="blackPlumImage"
+        title="Black Plum"
+        :itemCount="25"
+        bgColor="#FFF3FF"
+      />
+      <CategoryCard
+        :imageSrc="vegetableImage"
+        title="Vegetables"
+        :itemCount="65"
+        bgColor="#F2FCE4"
+      />
+      <CategoryCard
+        :imageSrc="headPhoneImage"
+        title="Headphone"
+        :itemCount="33"
+        bgColor="#FFFCEB"
+      />
+      <CategoryCard
+        :imageSrc="cakeAndmilkImage"
+        title="Cake & Milk"
+        :itemCount="54"
+        bgColor="#F2FCE4"
+      />
+      <CategoryCard
+        :imageSrc="orangeImage"
+        title="Orange"
+        :itemCount="63"
+        bgColor="#FFF3FF"
+      />
     </div>
-  </header>
-
+    <div class="banner">
+      <Banner
+        :imageSrc="onionImage"
+        title="Everyday Fresh & Clean with Our Products"
+        bg-color="#F0E8D5"
+        buttonColor="#3BB77E"
+      />
+      <Banner
+        :imageSrc="milkImage"
+        title="Make your Breakfast Healthy and Easy"
+        bg-color="#F3E8E8"
+        buttonColor="#3BB77E"
+      />
+      <Banner
+        :imageSrc="vegetablesImage"
+        title="The best Organic Products Online"
+        bg-color="#E7EAF3"
+        buttonColor="#FDC040"
+      />
+    </div>
+  </div>
 </template>
 
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+  .container{
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    flex-direction: column;
+    gap: 10px;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
+  .category-section{
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    gap: 10px;
   }
-
-  header .wrapper {
+  .banner{
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    gap: 10px;
   }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
