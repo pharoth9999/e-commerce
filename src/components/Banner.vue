@@ -1,18 +1,22 @@
 <script lang="ts" setup>
-defineProps<{
+const props = defineProps<{
   imageSrc: string
   title: string
-  bgColor?: string
-  buttonColor?: string
+  bgColor: string
+  bgButtonColor: string
 }>()
-import Button from './Button.vue';
+const shopNow = () => {
+  alert("Let's shop: " + props.title);
+} 
 </script>
 
 <template>
-  <div class="banner" :style="{ backgroundColor: bgColor || '#6abe83' }">
+  <div class="banner" :style="{ backgroundColor: bgColor}">
     <div class="banner-text">
       <h2>{{ title }}</h2>
-      <Button :bgButtonColor="buttonColor"></Button>
+      <button class="shop-button" :style="{ backgroundColor: bgButtonColor}" @click="shopNow">
+        Shop Now <span class="arrow">→</span>
+      </button>
     </div>
     <div class="banner-image">
       <img :src="imageSrc" alt="Fresh product" />
@@ -54,5 +58,23 @@ import Button from './Button.vue';
   width: 150px;
   height: auto;
   object-fit: contain;
+}
+
+.shop-button {
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.shop-button .arrow {
+  margin-left: 8px;
+  font-size: 18px;
 }
 </style>

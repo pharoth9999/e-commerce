@@ -1,9 +1,11 @@
 <script lang="ts" setup>
+import { defineProps, ref } from 'vue'
+
 defineProps<{
-  imageSrc: string
   title: string
+  imageSrc: string
   itemCount: number
-  bgColor?: string
+  bgColor: string
 }>()
 </script>
 
@@ -17,6 +19,8 @@ defineProps<{
     <p class="category-items">{{ itemCount }} items</p>
   </div>
 </template>
+
+
 
 <style scoped>
 .category-card {
@@ -32,7 +36,6 @@ defineProps<{
 .category-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  /* Optional: you can also make hover color dynamic */
 }
 
 .category-image {
