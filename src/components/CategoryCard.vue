@@ -1,26 +1,37 @@
-<script lang="ts" setup>
-import { defineProps, ref } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
 
-defineProps<{
-  title: string
-  imageSrc: string
-  itemCount: number
-  bgColor: string
-}>()
+export default defineComponent({
+  name: 'CategoryCard',
+
+  props: {
+    title: {
+      type: String,
+    },
+    imageSrc: {
+      type: String,
+    },
+    itemCount: {
+      type: Number,
+    },
+    bgColor: {
+      type: String,
+      default: '#f3fce7'
+    }
+  }
+})
 </script>
 
 <template>
   <div
     class="category-card"
-    :style="{ backgroundColor: bgColor || '#f3fce7' }"
+    :style="{ backgroundColor: bgColor }"
   >
     <img :src="imageSrc" alt="category image" class="category-image" />
     <h3 class="category-title">{{ title }}</h3>
     <p class="category-items">{{ itemCount }} items</p>
   </div>
 </template>
-
-
 
 <style scoped>
 .category-card {
