@@ -1,104 +1,86 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-import axios from 'axios'
+<script lang="ts" setup>
+import { onMounted, computed, ref } from 'vue'
+import { useProductStore } from '@/stores/product'
+
 
 import CategoryCard from './components/CategoryCard.vue'
 import Banner from './components/Banner.vue'
+import MenuBar from './components/ManuBar.vue'
+import ProductCard from './components/Product.vue'
 
-export default defineComponent({
-  name: 'App',
+const productStore = useProductStore()
+const selectedMenu = ref("All")
 
-  components: {
-    CategoryCard,
-    Banner
-  },
 
-  data() {
-    return {
-      categories: [] as any[], 
-      promotions: [] as any[]  
-    }
-  },
-
-  mounted() {
-    this.fetchCategories()
-    this.fetchPromotions()
-  },
-
-  methods: {
-    async fetchCategories() {
-      try {
-        const res = await axios.get("http://localhost:3000/api/categories")
-        this.categories = res.data.map((c: any) => ({
-          title: c.name,                  
-          imageSrc: `http://localhost:3000/${c.image}`,  
-          itemCount: c.productCount,      
-          bgColor: c.color                
-        }))
-      } catch (err) {
-        console.error("Error loading categories:", err)
-      }
-    },
-
-    async fetchPromotions() {
-      try {
-        const res = await axios.get('http://localhost:3000/api/promotions')
-        this.promotions = res.data.map((p: any) => ({
-          title: p.title,
-          imageSrc: `http://localhost:3000/${p.image}`, // map image → imageSrc
-          bgColor: p.color || '#F0F0F0',              // map color → bgColor
-          bgButtonColor: p.buttonColor || '#3BB77E'   // map buttonColor → bgButtonColor
-        }))
-      } catch (err) {
-        console.error('Error loading promotions:', err)
-      }
-    },
-
-    shopNow() {
-      console.log("Shop now clicked")
-    }
-  }
+onMounted(() => {
+  productStore.loadAll()
 })
 </script>
 
 <template>
-  <div class="container">
-    <div class="category-section">
-      <CategoryCard
-        v-for="(cat, i) in categories"
-        :key="i"
-        :title="cat.title"
-        :image-src="cat.imageSrc"
-        :item-count="cat.itemCount"
-        :bg-color="cat.bgColor"
-      />
-    </div>
+      
+    <div class="container">
+      <MenuBar
+      :text-title="'Featured Categories'"
+      :menu-items="['All', 'Milks & Dairies', 'Coffes & Teas', 'Pet Foods', 'Meats', 'Vegetables', 'Fruits']"
+      :active-item="selectedMenu"
+      @select="selectedMenu = $event"
+    />
+        <!-- CATEGORY SECTION -->
+        <div class="category-section">
+          <CategoryCard
+            v-for="(cat, i) in productStore.allCategories"
+            :key="i"
+            :title="cat.title"
+            :image-src="cat.imageSrc"
+            :item-count="cat.itemCount"
+            :bg-color="cat.bgColor"
+          />
+        </div>
 
-    <div class="banner">
-      <Banner
-        v-for="(banner, i) in promotions"
-        :key="i"
-        :title="banner.title"
-        :image-src="banner.imageSrc"
-        :bgColor="banner.bgColor"
-        :bgButtonColor="banner.bgButtonColor"
-      />
-    </div>
-  </div>
+        <!-- PROMOTION SECTION -->
+        <div class="banner">
+          <Banner
+            v-for="(banner, i) in productStore.allPromotions"
+            :key="i"
+            :title="banner.title"
+            :image-src="banner.imageSrc"
+            :bgColor="banner.bgColor"
+            :bgButtonColor="banner.bgButtonColor"
+          />
+        </div>
+        <ProductCard
+          v-for="(p, i) in productStore.allproducts"
+          :key="i"
+          :title="p.title"
+          :rating="p.rating"
+          :size="p.size"
+          :image="p.image"
+          :price="p.price"
+          :promotion="p.promotion"
+        />
+      </div>
 </template>
 
-<style scoped> 
-.container { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 10px; 
-} 
-.category-section { 
-  display: grid; 
-  grid-template-columns: repeat(10, 1fr); 
-  gap: 10px; } 
-.banner { 
-  display: flex; 
-  gap: 10px; 
-} 
+<style scoped>
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.category-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 </style>

@@ -1,25 +1,11 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+const props = defineProps<{
+  title: string
+  imageSrc: string
+  itemCount: number
+  bgColor: string
+}>()
 
-export default defineComponent({
-  name: 'CategoryCard',
-
-  props: {
-    title: {
-      type: String,
-    },
-    imageSrc: {
-      type: String,
-    },
-    itemCount: {
-      type: Number,
-    },
-    bgColor: {
-      type: String,
-      default: '#f3fce7'
-    }
-  }
-})
 </script>
 
 <template>
@@ -35,7 +21,7 @@ export default defineComponent({
 
 <style scoped>
 .category-card {
-  width: 160px;
+  width: 120px;
   border-radius: 16px;
   padding: 16px;
   text-align: center;
@@ -60,7 +46,7 @@ export default defineComponent({
 .category-title {
   color: #333;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 14px;
   margin: 0;
 }
 

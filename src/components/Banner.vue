@@ -30,19 +30,16 @@ const shopNow = () => {
   justify-content: space-between;
   align-items: center;
   border-radius: 16px;
-  padding: 40px 60px;
+  padding: 30px 40px;
+  width: 430px;
+  height: 220px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.banner-text {
-  flex: 1;
-  max-width: 50%;
-}
-
 .banner-text h2 {
   color: #2f3a3a;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.4;
   margin-bottom: 24px;
@@ -63,9 +60,9 @@ const shopNow = () => {
 .shop-button {
   color: white;
   border: none;
-  padding: 12px 28px;
+  padding: 8px 10px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
