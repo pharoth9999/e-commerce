@@ -23,7 +23,7 @@ export interface Promotion {
 
 export interface Product {
   id: number;
-  name: string;              // backend uses "name"
+  name: string;             
   rating: number;
   size: string;
   image: string;
