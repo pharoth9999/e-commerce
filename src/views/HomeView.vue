@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useProductStore } from '@/stores/product'
 
 import CategoryCard from '@/components/CategoryCard.vue'
 import Banner from '@/components/Banner.vue'
-import MenuBar from '@/components/ManuBar.vue'
+import ManuBar from '@/components/ManuBar.vue'
 import ProductCard from '@/components/Product.vue'
+import NavBar from '@/components/NavBar.vue'
+import ShowCase from '@/components/ShowCase.vue'
+
 
 const productStore = useProductStore()
 const selectedMenu = ref('All')
@@ -21,21 +24,18 @@ onMounted(async () => {
   promotions.value = await productStore.fetchAllPromotions()
   products.value = await productStore.fetchAllProducts()
 })
+// const filteredProducts = computed(() => {
+//   if (selectedMenu.value === "All") return products.value
+//   return products.value.filter(p => p.group === selectedMenu.value)
+// })
 </script>
 
 <template>
   <div class="container">
-    <MenuBar
+    <NavBar />
+    <ShowCase />
+    <ManuBar
       :text-title="'Featured Categories'"
-      :menu-items="[
-        'All',
-        'Milks & Dairies',
-        'Coffes & Teas',
-        'Pet Foods',
-        'Meats',
-        'Vegetables',
-        'Fruits',
-      ]"
       :active-item="selectedMenu"
       @select="selectedMenu = $event"
     />
@@ -66,17 +66,8 @@ onMounted(async () => {
 
   <!-- PRODUCTS SECTION -->
   <div class="product-container">
-    <MenuBar
+    <ManuBar
       :text-title="'Popular Products'"
-      :menu-items="[
-        'All',
-        'Milks & Dairies',
-        'Coffes & Teas',
-        'Pet Foods',
-        'Meats',
-        'Vegetables',
-        'Fruits',
-      ]"
       :active-item="selectedMenu"
       @select="selectedMenu = $event"
     />
@@ -84,6 +75,7 @@ onMounted(async () => {
       <ProductCard
         v-for="(p, i) in products"
         :key="i"
+        :id="p.id"
         :title="p.title"
         :rating="p.rating"
         :size="p.size"
@@ -91,12 +83,14 @@ onMounted(async () => {
         :price="p.price"
         :promotion="p.promotion"
         :count-sold="p.countSold"
+        :group="p.group"
+        :instock="p.instock"
       />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
 .container {
   width: 100%;
   display: flex;
@@ -104,7 +98,6 @@ onMounted(async () => {
   gap: 10px;
 }
 .category-section {
-  width: 100%;
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -112,7 +105,6 @@ onMounted(async () => {
   margin-bottom: 30px;
 }
 .banner {
-  width: 100%;
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -131,4 +123,5 @@ onMounted(async () => {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 15px;
 }
+
 </style>

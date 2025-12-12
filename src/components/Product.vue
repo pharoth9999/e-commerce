@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const props = defineProps({
+  id: Number,
   title: String,
   rating: Number,
   size: String,
@@ -15,10 +20,15 @@ const props = defineProps({
   },
   group: String,
 })
+
+// Handle navigation
+const goToDetail = () => {
+  router.push(`/products/${props.id}`)
+}
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="goToDetail">
     <!-- Promotion badge -->
     <div
       v-if="promotion > 0 || countSold >= 20"
@@ -65,7 +75,7 @@ const props = defineProps({
 
 <style scoped>
 .card {
-  width: 230px;
+  width: 240px;
   padding: 15px;
   border-radius: 18px;
   border: 1px solid #bce3c9;

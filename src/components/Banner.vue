@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import router from '@/router';
+
 const props = defineProps<{
   imageSrc: string
   title: string
@@ -6,8 +8,8 @@ const props = defineProps<{
   bgButtonColor: string
 }>()
 const shopNow = () => {
-  alert("Let's shop: " + props.title);
-} 
+  router.push(`/products/:productId`)
+}
 </script>
 
 <template>
@@ -73,5 +75,8 @@ const shopNow = () => {
 .shop-button .arrow {
   margin-left: 8px;
   font-size: 18px;
+}
+.arrow{
+  color: white;
 }
 </style>

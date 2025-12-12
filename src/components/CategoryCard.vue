@@ -1,17 +1,22 @@
 <script lang="ts" setup>
+import router from '@/router';
+
 const props = defineProps<{
   title: string
   imageSrc: string
   itemCount: number
   bgColor: string
 }>()
-
+const cate = () => {
+  router.push(`/categories/:categoryId`)
+}
 </script>
 
 <template>
   <div
     class="category-card"
     :style="{ backgroundColor: bgColor }"
+    @click="cate"
   >
     <img :src="imageSrc" alt="category image" class="category-image" />
     <h3 class="category-title">{{ title }}</h3>

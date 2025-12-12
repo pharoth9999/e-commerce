@@ -2,36 +2,35 @@
   <div class="menu">
     <div class="text-content">{{ textTitle }}</div>
     <div class="menu-bar">
-      <div
-        v-for="(item, i) in menuItems"
-        :key="i"
-        class="menu-item"
-        :class="{ active: activeItem === item }"
-        @click="$emit('select', item)"
-      >
-        {{ item }}
-      </div>
+      <ul class="menu-item">
+        <li @click="select('All')" :class="{ active: active==='All' }">All</li>
+        <li @click="select('Milks')" :class="{ active: active==='Milks' }">Milks & Dairies</li>
+        <li @click="select('Coffes')" :class="{ active: active==='Coffes' }">Coffes & Teas</li>
+        <li @click="select('Pet Foods')" :class="{ active: active==='Pet Foods' }">Pet Foods</li>
+        <li @click="select('Meats')" :class="{ active: active==='Meats' }">Meats</li>
+        <li @click="select('Vegetables')" :class="{ active: active==='Vegetables' }">Vegetables</li>
+        <li @click="select('Fruits')" :class="{ active: active==='Fruits' }">Fruits</li>
+      </ul>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-const props = defineProps({
-  menuItems: {
-    type: Array as () => string[],
-    required: true
-  },
-  activeItem: {
-    type: String,
-    default: "All"
-  },
-  textTitle: {
-    type: String,
-    default: "Featured Categories"
-  }
-});
+<script setup>
+import { ref } from "vue"
 
-const emits = defineEmits(["select"]);
+const props = defineProps({
+  textTitle: String,
+  activeItem: { type: String, default: "All" }
+})
+
+const emit = defineEmits(["select"])
+
+const active = ref(props.activeItem)
+
+function select(category) {
+  active.value = category
+  emit("select", category)   // send to parent
+}
 </script>
 
 <style scoped>
@@ -44,25 +43,22 @@ const emits = defineEmits(["select"]);
   font-size: 24px;
   font-weight: 600;
 }
-.menu-bar {
-  display: flex;
-  gap: 30px;
-  
-}
-
 .menu-item {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.menu-item li{
   cursor: pointer;
   color: #666;
   transition: 0.2s;
 }
-
-.menu-item:hover {
+.menu-item li:hover{
   color: #3bb77e;
 }
-
-.active {
-  color: #3bb77e;
-  border-bottom: 3px solid #3bb77e;
+.menu-item li.active {
+  color: black;
+  font-weight: bold;
   padding-bottom: 5px;
 }
 </style>

@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import NavBar from '@/components/NavBar.vue'
+import ProductImage from '@/components/ProductImage.vue';
+</script>
+
 <template>
-    <h1>product view</h1>
+    <NavBar />
+    <ProductImage />
 </template>
+<style>
+
+</style>

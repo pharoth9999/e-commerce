@@ -47,22 +47,29 @@ export const useProductStore = defineStore('product', {
     async fetchAllProducts(): Promise<any[]> {
       const res = await axios.get<Product[]>('http://localhost:3000/api/products')
       this.products = res.data
+
       return this.products.map((p) => {
         let images: string[] = []
+
         try {
+          // Parse the JSON string once
           images = JSON.parse(p.image)
         } catch (err) {
           console.error('Invalid image JSON for product', p.id)
         }
 
         return {
+          id: p.id,
           title: p.name,
           rating: p.rating,
           size: p.size,
-          image: images.length > 0 ? `http://localhost:3000/${images[0]}` : '',
+          image: images.length > 0 ? `http://localhost:3000/${images[0]}` : '', // ✅ image as URL
           price: p.price,
           promotion: p.promotionAsPercentage,
           countSold: p.countSold,
+          group: p.group,
+          categoryId: p.categoryId,
+          instock: p.instock
         }
       })
     },
