@@ -97,7 +97,7 @@ const decrement = () => {
 <style scoped>
 /* Main container */
 .product-container {
-  width: 50%;
+  width: 45%;
   display: flex;
   gap: 10px;
   margin-top: 0;

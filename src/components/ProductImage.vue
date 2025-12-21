@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProductStore } from '@/stores/product'
 import ProductDetail from './ProductDetail.vue'
+import ProductSuggestion from './ProductSuggestion.vue'
+import ProductTabs from './ProductTabs.vue'
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -37,11 +39,13 @@ onMounted(async () => {
 <template>
   <div class="container">
     <div v-if="product" class="product-img">
-      <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="zoom" />
       <img :src="imageUrl" alt="product image" class="img" />
     </div>
     <ProductDetail />
+    
   </div>
+  <ProductSuggestion />
+  <ProductTabs/>
 </template>
 <style scoped>
 .container {
@@ -69,8 +73,6 @@ onMounted(async () => {
   object-fit: contain;
 }
 
-.zoom {
-  color: #e5e5e5;
-}
+
 
 </style>
